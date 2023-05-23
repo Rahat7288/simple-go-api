@@ -2,8 +2,6 @@ package handlers
 
 import (
 	"encoding/json"
-	// "fmt"
-	// "log"
 	"net/http"
 
 	"github.com/Rahat7288/simple-go-api/models"
@@ -16,17 +14,6 @@ var users []models.User
 
 func GetUsers(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(users)
-}
-
-func GetUser(w http.ResponseWriter, r *http.Request) {
-	params := mux.Vars(r)
-	for _, item := range users {
-		if item.ID == params["id"] {
-			json.NewEncoder(w).Encode(item)
-			return
-		}
-	}
-	json.NewEncoder(w).Encode(&models.User{})
 }
 
 func CreateUser(w http.ResponseWriter, r *http.Request) {
