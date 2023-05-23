@@ -1,0 +1,10 @@
+version: '3.8'
+services:
+  api:
+    build: ./api
+    container_name: go_api_c
+    ports: 
+      - '8080:8000'
+    volumes:
+      - ./api:/app
+      # - ./app/
