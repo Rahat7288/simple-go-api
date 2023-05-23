@@ -6,16 +6,13 @@ import (
 	// "log"
 	"net/http"
 
+	"github.com/Rahat7288/simple-go-api/models"
 	"github.com/gorilla/mux"
 )
 
-type User struct {
-	ID       string `json:"id,omitempty"`
-	Username string `json:"username,omitempty"`
-	Email    string `json:"email,omitempty"`
-}
+// creating a user list
 
-var users []User
+var users []models.User
 
 func GetUsers(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(users)
@@ -29,11 +26,11 @@ func GetUser(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 	}
-	json.NewEncoder(w).Encode(&User{})
+	json.NewEncoder(w).Encode(&models.User{})
 }
 
 func CreateUser(w http.ResponseWriter, r *http.Request) {
-	var user User
+	var user models.User
 	_ = json.NewDecoder(r.Body).Decode(&user)
 	users = append(users, user)
 	json.NewEncoder(w).Encode(user)
@@ -44,7 +41,7 @@ func UpdateUser(w http.ResponseWriter, r *http.Request) {
 	for index, item := range users {
 		if item.ID == params["id"] {
 			users = append(users[:index], users[index+1:]...)
-			var user User
+			var user models.User
 			_ = json.NewDecoder(r.Body).Decode(&user)
 			user.ID = params["id"]
 			users = append(users, user)
